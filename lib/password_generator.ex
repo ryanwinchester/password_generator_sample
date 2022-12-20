@@ -13,6 +13,8 @@ defmodule PasswordGenerator do
   @default_separator "-"
   @default_word_count 4
 
+  require Integer
+
   @doc """
   Generate a password.
 
@@ -44,8 +46,8 @@ defmodule PasswordGenerator do
     seed_rand(seed, rand_alg)
 
     Enum.map_join(1..max_words, separator, fn
-      count when rem(count, 2) == 0 -> Enum.random(nouns)
-      count when rem(count, 2) == 1 -> Enum.random(adjectives)
+      count when Integer.is_even(count) -> Enum.random(nouns)
+      count when Integer.is_odd(count) -> Enum.random(adjectives)
     end)
   end
 
